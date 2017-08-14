@@ -29,14 +29,13 @@ public class EventService {
 
     public Event registerEvent (Event event) {
         event.setId(null);
-        Event dbEvent = findEventById(event.getTitle());
+        events.save(event);
+        return event;
+    }
 
-        if(dbEvent == null) {
-            events.save(event);
-        } else {
-            events.update(new ObjectId(dbEvent.getId())).with(event);
-            event.setId(dbEvent.getId());
-        }
+    public Event updateEvent(Event event){
+        Event dbEvent = findEventById(event.getId());
+        events.update(new ObjectId(dbEvent.getId())).with(event);
         return event;
     }
 

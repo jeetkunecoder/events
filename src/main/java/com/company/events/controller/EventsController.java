@@ -32,6 +32,12 @@ public class EventsController {
         return new ResponseEntity<>(service.registerEvent(event), HttpStatus.OK);
     }
 
+    @RequestMapping(value = ENDPOINT, method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public HttpEntity<Event> updateEvent(final @Validated @RequestBody Event event) {
+        return new ResponseEntity<>(service.updateEvent(event), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "Find the event details", nickname = "Find the event details",
             notes = "It will retrieve the event details")
     @RequestMapping(value = ENDPOINT + "/{id}", method = RequestMethod.GET)
