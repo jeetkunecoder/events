@@ -4,7 +4,13 @@ import com.company.events.application.EventsApplication;
 
 import com.company.events.model.Event;
 import com.company.events.service.EventService;
+import com.google.common.collect.ImmutableList;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import io.swagger.annotations.ApiOperation;
+import org.jongo.Find;
+import org.jongo.MongoCursor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -13,6 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = EventsApplication.API_V1, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,6 +54,25 @@ public class EventsController {
     public HttpEntity<Event> getEventDetails(@PathVariable String id) {
         Event event = service.findEventById(id);
         return new ResponseEntity<>(event, event != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @ApiOperation(value = "Find the events", nickname = "Find the events",
+            notes = "It will retrieve a collection of event")
+    @RequestMapping(value = ENDPOINT , method = RequestMethod.GET)
+    @ResponseBody
+    public HttpEntity<ImmutableList<Event>> getEvents() {
+        ImmutableList<Event> collection = service.findEvents();
+
+        return new ResponseEntity<>(collection, collection != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @ApiOperation(value = "Find the lastest events", nickname = "Find the lastest events",
+            notes = "It will retrieve a collection of event")
+    @RequestMapping(value = ENDPOINT + "/latest" , method = RequestMethod.GET)
+    @ResponseBody
+    public HttpEntity<ImmutableList<Event>> getLatestEvent() {
+        ImmutableList<Event> collection = service.findLastesEvents();
+        return new ResponseEntity<>(collection, collection != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @ApiOperation(value = "Delete the specified event", nickname = "Delete the specified event",
