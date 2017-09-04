@@ -17,15 +17,17 @@ public class Event {
     private Date date;
     private String address;
     private Double price;
+    private String url;
 
     public Event() {}
 
-    public Event(String title, String description, Date date, String address, Double price) {
+    public Event(String title, String description, Date date, String address, Double price, String url) {
         this.title = title;
         this.description = description;
         this.date = date;
         this.address = address;
         this.price = price;
+        this.setUrl(url);
     }
 
     public String getId() {
@@ -74,5 +76,14 @@ public class Event {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

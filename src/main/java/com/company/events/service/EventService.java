@@ -6,8 +6,10 @@ import static com.company.events.database.MongoUtils.filterToString;
 
 import com.company.events.database.MongoRepository;
 import com.company.events.model.Event;
+import com.google.common.collect.ImmutableList;
 import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
+import org.jongo.MongoCursor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,4 +55,19 @@ public class EventService {
         }
         return false;
     }
+
+
+    public ImmutableList<Event> findEvents() {
+        MongoCursor<Event> eventList = events.find().as(Event.class);
+        return ImmutableList.copyOf((Iterable<Event>) eventList);
+    }
+
+    public ImmutableList<Event> findLastesEvents() {
+        MongoCursor<Event> eventList = events.find().limit(3).as(Event.class);
+        return ImmutableList.copyOf((Iterable<Event>) eventList);
+    }
+
+
+
+
 }
