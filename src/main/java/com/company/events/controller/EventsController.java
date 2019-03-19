@@ -47,7 +47,7 @@ public class EventsController {
         return new ResponseEntity<>(event, event != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
-    @ApiOperation(value = "Delete the specified event", nickname = "Delete the specified event",
+    @ApiOperation(value = "Delete event by ID", nickname = "Delete the specified event",
             notes = "It will delete the event specified in the request.")
     @RequestMapping(value = ENDPOINT + "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
