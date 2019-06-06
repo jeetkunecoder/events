@@ -5,6 +5,7 @@ import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.util.Date;
 
+// Models an Event object
 public class Event {
 
     public static final String EVENT_TITLE = "title";
