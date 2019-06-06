@@ -28,7 +28,8 @@ public class EventService {
 
     @PostConstruct
     public void init() { events = repository.getCollection(COLLECTION); }
-
+    
+    // Creates a new event
     public Event registerEvent (Event event) {
         event.setId(null);
         events.save(event);
